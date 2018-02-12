@@ -14,8 +14,8 @@ only a certain scenario. When multiple distance matrices are available,
 separate tests using each distance matrix will lead to loss of power 
 due to multiple testing correction. Combing the distance matrices
 in a single test will improve power. PermanovaG combines multiple distance
-matrices  by taking the maximum of pseudo-F statistics for each distance
-matrix. Significance is assessed by permutation.
+matrices  by taking the minimum of the P values for individual distance
+matrices. Significance is assessed by permutation.
 }
 \usage{
 PermanovaG(formula, dat = NULL, ...)
@@ -24,9 +24,9 @@ PermanovaG(formula, dat = NULL, ...)
 \arguments{
   \item{formula}{
 %%     ~~Describe \code{formula} here~~
-Left side of the formula (\code{Y ~ X}) is a three dimensional ARRAY
+FORMULA Left side of the formula (\code{Y ~ X}) is a three dimensional ARRAY
 containing the supplied distance matrices as produced by \code{\link{GUniFrac}}
- function.
+ function. Or it could be a list of distance matrices.
 }
   \item{dat}{
 %%     ~~Describe \code{dat} here~~
@@ -45,19 +45,22 @@ Parameter passing to \code{adonis} function
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 Return a LIST containing:
-\item{aov.tab}{DATA.FRAME (columns - F.model, p.value, rows - covariates)}
+\item{p.tab}{DATA.FRAME (columns - p.values for individual distance matrices and 
+the omnibus test (Note: sequential P values, put the variable of interest in the end), 
+rows - covariates)}
+\item{aov.tab.list}{ LIST of \code{adonis} AOV tables for individual distance matrices}
+
 }
 
 \references{
 %% ~put references to the literature/web site here ~
-Jun Chen and Hongzhe Li(2012). Associating microbiome composition with 
-environmental covariates using generalized UniFrac distances. (Submitted)
+Jun Chen et al. (2012). Associating microbiome composition with 
+environmental covariates using generalized UniFrac distances. 28(16): 2106–2113.
 }
 \author{
 %%  ~~who you are~~
-Jun Chen <chenjun@mail.med.upenn.edu>
+Jun Chen <chen.jun2@mayo.edu>
 }
-
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

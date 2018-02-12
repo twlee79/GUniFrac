@@ -19,10 +19,9 @@ proportion for community A and B.
 
 Generalized UniFrac distance contains an extra parameter \eqn{\alpha}{\alpha} 
 controlling the weight on abundant lineages so the distance is not dominated 
-by highly abundant lineages. \eqn{\alpha=0.5}{\alpha=0.5} has overall the best 
-power. 
+by highly abundant lineages. \eqn{\alpha=0.5}{\alpha=0.5} is overall very robust. 
 
-The unweighted and weighted UniFrac, and variance adjusted weighted UniFrac 
+The unweighted and weighted UniFrac, and variance-adjusted weighted UniFrac 
 distances are also implemented.  
 }
 \usage{
@@ -52,25 +51,24 @@ Parameter controlling weight on abundant lineages
 %% ...
 Return a LIST containing
 		\item{unifracs}{A three dimensional array containing all the UniFrac
-		distance matrices including weighted/unweighted UniFrac distances ("d_1", "d_UW")
-		and Variance adjusted weighted UniFrac distance ("d_VAW").  Other UniFrac
-		distances can be retrieved using \code{unifracs[, , paste("d", alpha, sep="_")]}}
+		distance matrices}
 }
 \references{
 %% ~put references to the literature/web site here ~
-Jun Chen and Hongzhe Li(2012). Associating microbiome composition with 
-environmental covariates using generalized UniFrac distances. (Submitted)
+Jun Chen et al. (2012). Associating microbiome composition with 
+environmental covariates using generalized UniFrac distances. 28(16): 2106–2113.
 }
 \author{
 %%  ~~who you are~~
-Jun Chen <chenjun@mail.med.upenn.edu>
+Jun Chen <chen.jun2@mayo.edu>
 }
+
 \note{
 %%  ~~further notes~~
 The function only accepts rooted tree. To root a tree, you may
-consider using the R code from 
-\url{https://stat.ethz.ch/pipermail/r-sig-phylo/2010-September/000750.html}
+consider using \code{midpoint} from the package \code{phangorn}.
 }
+
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
@@ -96,8 +94,8 @@ unifracs <- GUniFrac(otu.tab.rff, throat.tree, alpha=c(0, 0.5, 1))$unifracs
 dw <- unifracs[, , "d_1"]		# Weighted UniFrac
 du <- unifracs[, , "d_UW"]		# Unweighted UniFrac	
 dv <- unifracs[, , "d_VAW"]		# Variance adjusted weighted UniFrac
-d0 <- unifracs[, , "d_0"]     		# GUniFrac with alpha 0  
-d5 <- unifracs[, , "d_0.5"]   		# GUniFrac with alpha 0.5 
+d0 <- unifracs[, , "d_0"]     	# GUniFrac with alpha 0  
+d5 <- unifracs[, , "d_0.5"]   	# GUniFrac with alpha 0.5 
 
 # Permanova - Distance based multivariate analysis of variance
 adonis(as.dist(d5) ~ groups)

@@ -1,16 +1,3 @@
-##############################################################
-# GUniFrac: Generalized UniFrac distances for comparing microbial
-#						communities.
-# Jun Chen (chenjun@mail.med.upenn.edu)
-# Feb 24, 2012
-#
-# Reference: Jun Chen & Hongzhe (2012). Associating microbiome 
-# composition with environmental covariates using generalized 
-# UniFrac distances. (Submitted)
-###############################################################
-require(ade4)
-require(ape)
-require(vegan)
 
 GUniFrac <- function (otu.tab, tree, alpha = c(0, 0.5, 1)) {
 	# Calculate Generalized UniFrac distances. Unweighted and 
@@ -130,37 +117,76 @@ PermanovaG <- function(formula, dat=NULL, ...) {
 	#	
 	# Args:
 	#		formula: left side of the formula is a three dimensional array
-	#						of the supplied distance matrices as produced by GUniFrac
+	#				 of the supplied distance matrices as produced by GUniFrac,
+	#                Or a list of distance matrices.
 	#		dat: data.frame containing the covariates
-	#		...: Parameter passing to adonis function
+	#		...: Parameter passing to "adonis" function
 	#
 	# Returns:
-	# 	aov.tab (data.frame): columns - F.model, p.value
-	#						 							rows - Covariates
-	#
+	# 	p.tab (data.frame): rows - Covariates (covariate of interest should appear at the last)
+	#        columns - F.model, p.values for individual distance matrices and the omnibus test, 
+	#   aov.tab.list:  a list of the aov.tab from individual matrices 
 	
 	save.seed <- get(".Random.seed", .GlobalEnv)
 	lhs <- formula[[2]]
 	lhs <- eval(lhs, dat, parent.frame())
 	rhs <- as.character(formula)[3]
-	f.perms <- -Inf
-	f.stat <- -Inf
-	for(i in 1:(dim(lhs)[3])){
-		# .Random.seed is a global variable. 
-		assign(".Random.seed", save.seed, .GlobalEnv)	
-		Y <- as.dist(lhs[, , i])
-		formula2 <- as.formula(paste("Y", "~", rhs))		
-		obj <- adonis(formula2, dat, ...)		
-		f.perms <- ifelse(f.perms > obj$f.perms, f.perms, obj$f.perms)		
-		temp <- obj$aov.tab[1:ncol(f.perms), "F.Model"]
-		f.stat <- ifelse(f.stat > temp, f.stat, temp)		
-	}	
-	pv <- (rowSums(t(f.perms) >= f.stat) + 1) / (nrow(f.perms) + 1)	
-	aov.tab <- data.frame(F.Model = f.stat, p.value = pv )
-	rownames(aov.tab) <- rownames(obj$aov.tab)[1:ncol(f.perms)]
 	
-	list(aov.tab=aov.tab)
+	array.flag <- is.array(lhs)
+	list.flag <- is.list(lhs)
+	
+	if (!array.flag & !list.flag) {
+		stop('The left side of the formula should be either a list or an array of distance matrices!\n')
+	}
+	if (array.flag) {
+		if (length(dim(lhs)) != 3) {
+			stop('The array should be three-dimensional!\n')
+		} else {
+			len <- dim(lhs)[3]
+		}
+	}
+	
+	if (list.flag) {
+		len <- length(lhs)
+	}
+	
+	p.perms <- list()
+	p.obs <- list()
+	aov.tab.list <- list()
+	for (i_ in 1:len) {
+		assign(".Random.seed", save.seed, .GlobalEnv)
+		if (array.flag) {
+			Y <- as.dist(lhs[, , i_])
+		}
+		if (list.flag) {
+			Y <- as.dist(lhs[[i_]])
+		}
+
+		obj <- adonis(as.formula(paste("Y", "~", rhs)), dat, ...)
+		perm.mat <- obj$f.perms
+		p.perms[[i_]] <- 1 - (apply(perm.mat, 2, rank) - 1) / nrow(perm.mat)
+		p.obs[[i_]] <- obj$aov.tab[1:ncol(perm.mat), "Pr(>F)"]
+		aov.tab.list[[i_]] <- obj$aov.tab
+	}
+	
+	omni.pv <- NULL
+	indiv.pv <- NULL
+	for (j_ in 1:ncol(perm.mat)) {
+		p.perms.j <- sapply(p.perms, function (x) x[, j_])
+		p.obj.j <- sapply(p.obs, function (x) x[j_])
+		omni.pv <- c(omni.pv, mean(c(rowMins(p.perms.j ) <= min(p.obj.j), 1)))
+		indiv.pv <- rbind(indiv.pv, p.obj.j)
+	}
+	colnames(indiv.pv) <- paste0('D', 1:ncol(indiv.pv), '.p.value')
+	rownames(indiv.pv) <- 1:nrow(indiv.pv)
+	
+	p.tab <- data.frame(indiv.pv, omni.p.value = omni.pv)
+	rownames(p.tab) <- rownames(obj$aov.tab)[1:ncol(perm.mat)]
+	
+	
+	list(p.tab = p.tab, aov.tab.list = aov.tab.list)
 }
+
 
 
 Rarefy <- function (otu.tab, depth = min(rowSums(otu.tab))){

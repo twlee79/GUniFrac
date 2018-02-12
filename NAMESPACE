@@ -1,11 +1,6 @@
-# Default NAMESPACE created by R
-# Remove the previous line if you edit this file
+import("vegan")
+import("ape")
+importFrom("matrixStats", "rowMins")
+importFrom("stats", "as.dist", "as.formula")
 
-# Export all names
-exportPattern(".")
-
-# Import all packages listed as Imports or Depends
-import(
-  vegan,
-  ape
-)
+exportPattern("^[[:alpha:]]+")

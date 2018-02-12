@@ -25,15 +25,17 @@ depth is used.
 \value{
  Return a LIST containing:
  \item{otu.tab.rff}{Rarefied OTU table}
- \item{discard}{IDs of samples that do not reach the specified sequencing depth}
+ \item{discard}{IDs of samples that does not reach the specified sequencing depth}
 %% ...
 }
 \references{
-Jun Chen and Hongzhe Li(2012). Associating microbiome composition with 
-environmental covariates using generalized UniFrac distances. (Submitted)
+%% ~put references to the literature/web site here ~
+Jun Chen et al. (2012). Associating microbiome composition with 
+environmental covariates using generalized UniFrac distances. 28(16): 2106–2113.
 }
 \author{
-Jun Chen <chenjun@mail.med.upenn.edu>
+%%  ~~who you are~~
+Jun Chen <chen.jun2@mayo.edu>
 }
 
 
