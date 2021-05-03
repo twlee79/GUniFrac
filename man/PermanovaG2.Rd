@@ -1,9 +1,9 @@
-\name{PermanovaG}
-\alias{PermanovaG}
+\name{PermanovaG2}
+\alias{PermanovaG2}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
-Permutational multivariate analysis of variance using multiple distance
+Permutational multivariate analysis of variance using multiple distance (Freedman-Lane permutation)
 matrices
 }
 \description{
@@ -18,7 +18,7 @@ matrices  by taking the minimum of the P values for individual distance
 matrices. Significance is assessed by permutation.
 }
 \usage{
-PermanovaG(formula, data = NULL, ...)
+PermanovaG2(formula, data = NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -66,7 +66,7 @@ Jun Chen <chen.jun2@mayo.edu>
 
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
-\code{\link{Rarefy}}, \code{\link{GUniFrac}}
+\code{\link{Rarefy}}, \code{\link{GUniFrac}}, \code{\link{adonis3}}
 }
 \examples{
 data(throat.otu.tab)
@@ -82,8 +82,7 @@ otu.tab.rff <- Rarefy(throat.otu.tab)$otu.tab.rff
 unifracs <- GUniFrac(otu.tab.rff, throat.tree, alpha=c(0, 0.5, 1))$unifracs
 
 #	Combine unweighted and weighted UniFrac for testing
-PermanovaG(unifracs[, , c("d_1", "d_UW")] ~ groups)
-# Combine d(0), d(0.5), d(1) for testing
+PermanovaG2(unifracs[, , c("d_1", "d_UW")] ~ groups)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

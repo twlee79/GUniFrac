@@ -77,7 +77,6 @@ consider using \code{midpoint} from the package \code{phangorn}.
 \code{\link{Rarefy}}, \code{\link{PermanovaG}}
 }
 \examples{
-require(ade4)
 
 data(throat.otu.tab)
 data(throat.tree)
@@ -98,10 +97,8 @@ d0 <- unifracs[, , "d_0"]     	# GUniFrac with alpha 0
 d5 <- unifracs[, , "d_0.5"]   	# GUniFrac with alpha 0.5 
 
 # Permanova - Distance based multivariate analysis of variance
-adonis(as.dist(d5) ~ groups)
+adonis3(as.dist(d5) ~ groups)
 
-# PCoA plot
-s.class(cmdscale(d5, k=2), fac = groups) 
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
