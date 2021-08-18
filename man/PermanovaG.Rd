@@ -3,8 +3,7 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
-Permutational multivariate analysis of variance using multiple distance
-matrices
+Permutational Multivariate Analysis of Variance Using Multiple Distance Matrices
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
@@ -24,17 +23,17 @@ PermanovaG(formula, data = NULL, ...)
 \arguments{
   \item{formula}{
 %%     ~~Describe \code{formula} here~~
-FORMULA Left side of the formula (\code{Y ~ X}) is a three dimensional ARRAY
+a formula, left side of the formula (\code{Y ~ X}) is a three dimensional ARRAY
 containing the supplied distance matrices as produced by \code{\link{GUniFrac}}
  function. Or it could be a list of distance matrices.
 }
   \item{data}{
 %%     ~~Describe \code{dat} here~~
-DATA.FRAME containing the covariates
+a data frame containing the covariates
 }
   \item{\dots}{
 %%     ~~Describe \code{\dots} here~~
-Parameter passing to \code{adonis} function
+parameter passing to \code{adonis} function
 }
 }
 
@@ -44,18 +43,16 @@ Parameter passing to \code{adonis} function
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
-Return a LIST containing:
-\item{p.tab}{DATA.FRAME (columns - p.values for individual distance matrices and 
-the omnibus test (Note: sequential P values, put the variable of interest in the end), 
-rows - covariates)}
-\item{aov.tab.list}{ LIST of \code{adonis} AOV tables for individual distance matrices}
+Return a list containing:
+\item{p.tab}{a data frame, columns: p-values for individual distance matrices and the omnibus test, 
+rows: covariates. (Note: they are sequential p-values, put the variable of interest in the end)}
+\item{aov.tab.list}{a list of \code{adonis} AOV tables for individual distance matrices}
 
 }
 
 \references{
 %% ~put references to the literature/web site here ~
-Jun Chen et al. (2012). Associating microbiome composition with 
-environmental covariates using generalized UniFrac distances. 28(16): 2106–2113.
+Chen, J., Bittinger, K., Charlson, E.S., Hoffmann, C., Lewis, J., Wu, G.D., Collman, R.G., Bushman, F.D. and Li, H.(2012). Associating microbiome composition with environmental covariates using generalized UniFrac distances. 28(16): 2106–2113.
 }
 \author{
 %%  ~~who you are~~
@@ -87,7 +84,6 @@ PermanovaG(unifracs[, , c("d_1", "d_UW")] ~ groups)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ htest }
 \keyword{ distance }
 \keyword{ multivariate }
 \keyword{ nonparametric }

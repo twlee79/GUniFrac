@@ -3,7 +3,7 @@
 \docType{data}
 \title{
 %%   ~~ data name/kind ... ~~
-Meta data of the throat microbiome samples.
+Throat Microbiome Meta Data
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~
@@ -15,10 +15,7 @@ of left body side. It contains 60 subjects consisting of 32 nonsmokers
  and 28 smokers. 
 }
 \usage{data(throat.meta)}
-\format{
-  The format is:
- chr "throat.meta"
-}
+
 
 \source{
 %%  ~~ reference to a publication or URL from which the data were obtained ~~
@@ -29,6 +26,6 @@ Cigarette Smokers. PLoS ONE 5(12): e15216.
 
 \examples{
 data(throat.meta)
-## maybe str(throat.meta) ; plot(throat.meta) ...
+
 }
 \keyword{datasets}

@@ -31,15 +31,15 @@ GUniFrac(otu.tab, tree, alpha = c(0, 0.5, 1))
 \arguments{
   \item{otu.tab}{
 %%     ~~Describe \code{otu.tab} here~~
-OTU count table, row - n sample, column - q OTU
+an OTU count table, row - n sample, column - q OTU
 }
   \item{tree}{
 %%     ~~Describe \code{tree} here~~
-Rooted phylogenetic tree of R class \dQuote{phylo}
+a rooted phylogenetic tree of R class \dQuote{phylo}
 }
   \item{alpha}{
 %%     ~~Describe \code{alpha} here~~
-Parameter controlling weight on abundant lineages
+the parameter controlling weight on abundant lineages
 }
 }
 
@@ -49,13 +49,13 @@ Parameter controlling weight on abundant lineages
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
-Return a LIST containing
-		\item{unifracs}{A three dimensional array containing all the UniFrac
+Return a list containing
+		\item{unifracs}{a three dimensional array containing all the UniFrac
 		distance matrices}
 }
 \references{
 %% ~put references to the literature/web site here ~
-Jun Chen et al. (2012). Associating microbiome composition with 
+Chen, J., Bittinger, K., Charlson, E.S., Hoffmann, C., Lewis, J., Wu, G.D., Collman, R.G., Bushman, F.D. and Li, H. (2012). Associating microbiome composition with 
 environmental covariates using generalized UniFrac distances. 28(16): 2106–2113.
 }
 \author{
@@ -65,8 +65,7 @@ Jun Chen <chen.jun2@mayo.edu>
 
 \note{
 %%  ~~further notes~~
-The function only accepts rooted tree. To root a tree, you may
-consider using \code{midpoint} from the package \code{phangorn}.
+The function only accepts rooted tree. To root a tree, you may consider using \code{midpoint} from the package \code{phangorn}.
 }
 
 

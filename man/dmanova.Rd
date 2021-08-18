@@ -62,7 +62,8 @@ should be put as the last term in \code{formula} while the variables to be adjus
 
 
 \references{
-Chen, J. & Zhang, X. 2020+.  D-MANOVA: fast distance-based multivariate analysis of variance for large-scale microbiome association studies. Submitted.
+Chen, J. & Zhang, X. 2021.  D-MANOVA: fast distance-based multivariate analysis of variance for large-scale microbiome association studies.
+ Bioinformatics. https://doi.org/10.1093/bioinformatics/btab498
 
 }
 

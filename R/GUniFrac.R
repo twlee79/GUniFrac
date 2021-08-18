@@ -535,3 +535,4 @@ dmanova <- function (formula, data = NULL, positify = FALSE,
 	
 	out
 }
+

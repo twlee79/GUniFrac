@@ -18,7 +18,7 @@ adonis3(formula, data, permutations = 999, method = "bray",
 
 \arguments{
 
-  \item{formula}{Model formula. The LHS must be either a community
+  \item{formula}{model formula. The LHS must be either a community
     data matrix or a dissimilarity matrix, e.g., from
     \code{\link{vegdist}} or \code{\link{dist}}.  If the LHS is a data
     matrix, function \code{\link{vegdist}} will be used to find the
@@ -39,7 +39,7 @@ adonis3(formula, data, permutations = 999, method = "bray",
   \item{contr.unordered, contr.ordered}{contrasts used for the design
     matrix (default in R is dummy or treatment contrasts for unordered
     factors). }
-  \item{parallel}{Number of parallel processes or a predefined socket
+  \item{parallel}{number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
     package.}
@@ -68,7 +68,7 @@ The new implementation is revised on the \code{adonis} function with the same in
   Function \code{adonis3} returns an object of class \code{"adonis"} with
   following components:
 
-  \item{aov.tab}{Typical AOV table showing sources of variation,
+  \item{aov.tab}{typical AOV table showing sources of variation,
     degrees of freedom, sequential sums of squares, mean squares,
     \eqn{F} statistics, partial \eqn{R^2}{R-squared} and \eqn{P}
     values, based on \eqn{N} permutations. }
@@ -88,9 +88,9 @@ The new implementation is revised on the \code{adonis} function with the same in
     statistics for each source of variation based on \eqn{N}
     permutations of the data. The permutations can be inspected with
     \code{\link{permustats}} and its support functions.}
-  \item{model.matrix}{The \code{\link{model.matrix}} for the right hand
+  \item{model.matrix}{the \code{\link{model.matrix}} for the right hand
     side of the formula.}
-  \item{terms}{The \code{\link{terms}} component of the model.}
+  \item{terms}{the \code{\link{terms}} component of the model.}
 }
 
 
