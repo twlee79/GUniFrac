@@ -36,7 +36,7 @@ public:
 GMPR::~GMPR() {};
 
 GMPR::GMPR(const IntegerMatrix &otumatrix, int nrow, int pcol, int min_ct, int intersect_no) :
-  comm(otumatrix), n(nrow), p(pcol), minct(min_ct), inter_n(intersect_no), factor(n*n, 0),
+  comm(otumatrix), n(nrow), p(pcol), minct(min_ct), inter_n(intersect_no), factor(n*n, -10),
   size_factor(n, 0), NSS(n, 0)
 {};
 
@@ -63,9 +63,9 @@ size_factor[i] = pow(size_factor[i], 1.0 / NSS[i]);
 void GMPR::Size_factor(void) {
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
-      if (abs(factor[i*n + j]) > 1e-10) {
+      if (factor[i*n + j] > -10) {
         NSS[i] += 1;
-        size_factor[i] += log(factor[i*n + j]);
+        size_factor[i] += factor[i*n + j];
       };
     };
 //    NSS[i] -= 1;  //substrat itself
@@ -98,17 +98,17 @@ void GMPR::Factor(void) {
       if (h >= inter_n) {
         sort(ratio.begin(), ratio.begin()+h);
         if (h % 2 == 1) {
-          factor[i*n + j] = ratio[h / 2];
-          factor[j*n + i] = 1 / (ratio[h / 2]);
+          factor[i*n + j] = log( ratio[h / 2] );
+          factor[j*n + i] = -factor[i*n + j];
         }
         else {
-          factor[i*n + j] = (ratio[h / 2 - 1] + ratio[h / 2]) / 2;
-          factor[j*n + i] = ( (1/ratio[h / 2 - 1]) + (1/ratio[h / 2]) ) / 2;
+          factor[i*n + j] = ( log(ratio[h / 2 - 1]) + log(ratio[h / 2]) ) / 2 ;
+          factor[j*n + i] = -factor[i*n + j];
         }
       };
     };
   };
-  GMPR::diag(factor, n, 1);
+  GMPR::diag(factor, n, 0);
 }
 
 void GMPR::diag(vector<double> &square_matrix, const int &n, const double &i) {
