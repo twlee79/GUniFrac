@@ -103,7 +103,7 @@ void GMPR::Factor(void) {
         }
         else {
           factor[i*n + j] = (ratio[h / 2 - 1] + ratio[h / 2]) / 2;
-          factor[j*n + i] = 1 / ((ratio[h / 2 - 1] + ratio[h / 2]) / 2);
+          factor[j*n + i] = ( (1/ratio[h / 2 - 1]) + (1/ratio[h / 2]) ) / 2;
         }
       };
     };
